@@ -3,8 +3,6 @@ import yfinance as yf
 class Stock:
     def __init__(self, stock) -> None:
         self.stock = stock
-        # self.df = self.read_file()
-        # self.sectorize()
         self.data = {}
         self.stock = yf.Ticker(stock)
 
@@ -37,3 +35,6 @@ class Stock:
             return self.data[key]
         except:
             return 'Not Available'
+
+GOOGL = Stock("googl")
+print(GOOGL.data['currentPrice'])
