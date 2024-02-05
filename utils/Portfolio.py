@@ -9,8 +9,12 @@ class Portfolio:
         stock = Stock(stock)
         self.stock_holdings = self.stock_holdings.get(stock, 0) + value
 
-    def update_value_history(self):
+    def get_current_value(self):
         current_value = 0
         for key in self.stock_holdings.keys():
-            stock = Stock(stock)
-            stock_value = stock.get_item()
+            stock = Stock(key)
+            stock_value = stock.get_item("currentPrice")
+            current_value += stock_value
+        
+        return current_value
+    
