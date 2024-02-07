@@ -1,4 +1,5 @@
 import yfinance as yf
+from finbert_utils import estimate_sentiment
 
 class Stock:
     def __init__(self, stock) -> None:
@@ -35,6 +36,11 @@ class Stock:
             return self.data[key]
         except:
             return 'Not Available'
+    
 
-GOOGL = Stock("googl")
-print(GOOGL.data['currentPrice'])
+
+GOOGL = Stock("PFE")
+news = GOOGL.stock.get_news()
+news_title = [news['title'] for news in news]
+# print(news_title)
+print(estimate_sentiment(news_title))
