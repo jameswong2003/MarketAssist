@@ -23,6 +23,11 @@ def estimate_sentiment(news):
 
 
 if __name__ == "__main__":
-    tensor, sentiment = estimate_sentiment(['market crashed','traders are skeptical', 'wary of buying'])
+    tensor, sentiment = estimate_sentiment(["""
+The S&P 500 is expected to face downward pressure on its valuation due to increased debt issuances by the U.S. Treasury.
+The shift towards more long-term debt issuance will require higher interest rates, impacting the yield on 10-year T-notes.
+The market is predicting 5 rate cuts, but the Federal Reserve is hinting at only 3, leading to potential increases in discount rates.
+I think the ETF is a strong sell.
+"""])
     print(tensor, sentiment)
-    print(torch.cuda.is_available())
+    
