@@ -41,8 +41,9 @@ class Stock:
 
 GOOGL = Stock("PFE")
 news = GOOGL.stock.get_news()
+news_link = [new['link'] for new in news]
 # news_title = [news['title'] for news in news]
-# print(news_title)
+# print(news_title)xs
 # print(estimate_sentiment(news_title))
 
-print(news)
+print(news_link)
