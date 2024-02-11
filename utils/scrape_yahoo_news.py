@@ -10,12 +10,10 @@ def grab_body_content(news_link):
     article_body = soup.find("div", class_="caas-body")
     try:
         article_text = article_body.find_all("p")
-        content = ""
+        content = []
         for p in article_text:
-            content += p.text
+            content.append(p.text)
         
         return content
     except:
         raise Exception("No Yahoo Article found")
-
-    
