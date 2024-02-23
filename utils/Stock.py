@@ -1,5 +1,6 @@
 import yfinance as yf
 from finbert_utils import estimate_sentiment
+from scrape_yahoo_news import grab_body_content
 
 class Stock:
     def __init__(self, stock) -> None:
@@ -36,14 +37,19 @@ class Stock:
             return self.data[key]
         except:
             return 'Not Available'
+        
+    def get_sentiment_data(self):
+        news = self.stock.get_news()
+        news_link = [new['link'] for new in news]
+
+        data = []
+        for link in news_link:
+            try:
+                content = grab_body_content(link)
+                probability, sentiment = estimate_sentiment(content)
+                data.append([probability, sentiment])
+            except Exception as e:
+                continue
+
+        return data
     
-
-
-GOOGL = Stock("PFE")
-news = GOOGL.stock.get_news()
-news_link = [new['link'] for new in news]
-# news_title = [news['title'] for news in news]
-# print(news_title)xs
-# print(estimate_sentiment(news_title))
-
-print(news_link)
