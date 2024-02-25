@@ -53,3 +53,36 @@ class Stock:
 
         return data
     
+    def recommendation(self):
+        data = self.get_sentiment_data()
+        
+        # Sort the data out
+        results = {
+            "positive": [],
+            "neutral": [],
+            "negative": []
+        }
+
+        for d in data:
+            results[d[1]].append(d[0])
+
+        averaged_results = {
+            "positive": 0,
+            "neutral": 0,
+            "negative": 0
+        }
+
+        for key in results.keys():
+            average = 0
+            for probability in results[key]:
+                print(probability)
+                average += probability
+            
+            divisor = len(results[key]) if len(results[key]) != 0 else 1
+            average /= divisor
+            averaged_results[key] = average
+        
+        return averaged_results
+    
+GOOGL = Stock("GOOGL")
+print(GOOGL.recommendation())
