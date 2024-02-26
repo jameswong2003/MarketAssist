@@ -1,6 +1,7 @@
 import yfinance as yf
 from finbert_utils import estimate_sentiment
 from scrape_yahoo_news import grab_body_content
+import concurrent.futures
 
 class Stock:
     def __init__(self, stock) -> None:
@@ -39,17 +40,23 @@ class Stock:
             return 'Not Available'
         
     def get_sentiment_data(self):
+        def process_links(link):
+            content = grab_body_content(link)
+            probability, sentiment = estimate_sentiment(content)
+            return [probability, sentiment]
+        
+
         news = self.stock.get_news()
         news_link = [new['link'] for new in news]
 
         data = []
-        for link in news_link:
-            try:
-                content = grab_body_content(link)
-                probability, sentiment = estimate_sentiment(content)
-                data.append([probability, sentiment])
-            except Exception as e:
-                continue
+
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            futures = [executor.submit(process_links, link) for link in news_link]
+            for future in futures:
+                result = future.result()
+                if result is not None:
+                    data.append(result)
 
         return data
     
@@ -84,5 +91,5 @@ class Stock:
         
         return averaged_results
     
-GOOGL = Stock("GOOGL")
+GOOGL = Stock("MSFT")
 print(GOOGL.recommendation())
