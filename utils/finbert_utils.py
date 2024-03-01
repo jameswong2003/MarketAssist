@@ -23,7 +23,4 @@ def estimate_sentiment(news):
         return 0, labels[-1]
 
 
-if __name__ == "__main__":    
-    content = grab_body_content("https://finance.yahoo.com/news/where-microsoft-stock-3-years-124000915.html")
-    print(estimate_sentiment(content))
     

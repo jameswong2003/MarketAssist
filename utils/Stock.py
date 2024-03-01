@@ -82,14 +82,21 @@ class Stock:
         for key in results.keys():
             average = 0
             for probability in results[key]:
-                print(probability)
                 average += probability
             
             divisor = len(results[key]) if len(results[key]) != 0 else 1
             average /= divisor
             averaged_results[key] = average
         
-        return averaged_results
-    
-GOOGL = Stock("MSFT")
+        print(averaged_results)
+        # Only consider the positive / negative
+        # Neutral if postitive and negative are both zero
+        if averaged_results["positive"] == 0 and averaged_results["negative"] == 0:
+            return "neutral"
+
+        if averaged_results["positive"] > averaged_results["negative"]:
+            return "positive"
+        return "negative"
+
+GOOGL = Stock("RIOT")
 print(GOOGL.recommendation())
