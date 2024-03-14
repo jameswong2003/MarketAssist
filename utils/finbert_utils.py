@@ -1,7 +1,5 @@
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch
-from typing import Tuple 
-from scrape_yahoo_news import grab_body_content
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
 
 model = AutoModelForSequenceClassification.from_pretrained("ProsusAI/finbert").to(device)
@@ -21,6 +19,3 @@ def estimate_sentiment(news):
         return probability, sentiment
     else:
         return 0, labels[-1]
-
-
-    

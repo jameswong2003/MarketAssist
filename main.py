@@ -1,10 +1,15 @@
 from utils.Stock import Stock
+import pandas as pd
 
-stock = input('Stock that you would like to look at\n')
+csv = pd.read_csv("fortune500.csv")
+print(csv)
 
-stock = Stock(stock)
-print(stock.data)
+tickers = csv["symbol"].tolist()
+print(tickers)
 
-while True:
-    option = input('What part of the stock would you like to look at')
-    print(stock.get_item(key=option))
+for ticker in tickers:
+    t = Stock(ticker)
+    suggestion = t.recommendation()
+
+    if suggestion == "positive":
+        print(ticker)

@@ -1,10 +1,10 @@
 import yfinance as yf
-from finbert_utils import estimate_sentiment
-from scrape_yahoo_news import grab_body_content
+from utils.finbert_utils import estimate_sentiment
+from utils.scrape_yahoo_news import grab_body_content
 import concurrent.futures
 
 class Stock:
-    def __init__(self, stock) -> None:
+    def __init__(self, stock):
         self.stock = stock
         self.data = {}
         self.stock = yf.Ticker(stock)
@@ -97,6 +97,3 @@ class Stock:
         if averaged_results["positive"] > averaged_results["negative"]:
             return "positive"
         return "negative"
-
-GOOGL = Stock("RIOT")
-print(GOOGL.recommendation())
