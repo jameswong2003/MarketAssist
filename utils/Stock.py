@@ -1,6 +1,6 @@
 import yfinance as yf
-from finbert_utils import estimate_sentiment
-from scrape_yahoo_news import grab_body_content
+from utils.finbert_utils import estimate_sentiment
+from utils.scrape_yahoo_news import grab_body_content
 import concurrent.futures
 
 class Stock:
